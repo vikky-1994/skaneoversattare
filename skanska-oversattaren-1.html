@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skånska-översättaren 3000</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root {
+    --bramd: #d94f4f;      /* tegel/skåne-röd */
+    --korn: #e8c15a;       /* kornfält-gul */
+    --himmel: #cfe0dd;     /* blek skånehimmel */
+    --mylla: #2b241e;      /* mörk jord */
+    --papper: #f7f1e6;
+    --danmark: #c8102e;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--papper);
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(43,36,30,0.05) 40px),
+      linear-gradient(180deg, var(--himmel) 0%, var(--papper) 55%);
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--mylla);
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+
+  .kort {
+    width: 100%;
+    max-width: 620px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bramd);
+    font-weight: 700;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(34px, 7vw, 52px);
+    margin: 6px 0 8px;
+    line-height: 1.02;
+  }
+
+  h1 span {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--bramd);
+  }
+
+  .undertext {
+    font-size: 15px;
+    color: #6b5f52;
+    max-width: 40ch;
+    margin: 0 auto;
+  }
+
+  .panel {
+    background: #fff;
+    border: 2px solid var(--mylla);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 6px 6px 0 var(--korn);
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    color: var(--mylla);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 110px;
+    resize: vertical;
+    border: 2px solid #d8cfc0;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    background: var(--papper);
+    color: var(--mylla);
+    transition: border-color 0.15s ease;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--bramd);
+  }
+
+  .knapprad {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+
+  button {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background: var(--bramd);
+    color: #fff;
+    border: 2px solid var(--mylla);
+    border-radius: 999px;
+    padding: 12px 26px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--mylla);
+    transition: transform 0.08s ease;
+  }
+
+  button:hover { transform: translate(-1px, -1px); }
+  button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--mylla);
+  }
+
+  .resultat {
+    margin-top: 22px;
+    border-radius: 14px;
+    padding: 20px;
+    display: none;
+    animation: yppa 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes yppa {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .resultat.dansk {
+    display: block;
+    background: #fdecec;
+    border: 2px dashed var(--danmark);
+  }
+
+  .flagg-rand {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg, var(--danmark) 0 24px, #fff 24px 30px
+    );
+  }
+
+  .resultat h3 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    margin: 10px 0 8px;
+    color: var(--danmark);
+    font-size: 20px;
+  }
+
+  .resultat p {
+    margin: 0 0 6px;
+    line-height: 1.5;
+    font-size: 15.5px;
+  }
+
+  .dansk-text {
+    font-style: italic;
+    color: #7a1620;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 15px;
+    border: 1px solid #f0c9c9;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 12px;
+    color: #a99b87;
+  }
+</style>
+</head>
+<body>
+  <div class="kort">
+    <header>
+      <h1>Skånska<span>-översättaren</span></h1>
+      <p class="undertext">Skriv en mening på vanlig svenska. Vi översätter den till äkta skånska.</p>
+    </header>
+
+    <div class="panel">
+      <label for="input">Din text</label>
+      <textarea id="input" placeholder="T.ex: Jag ska köpa en kanelbulle på fikat"></textarea>
+      <div class="knapprad">
+        <button id="knapp">Översätt te' skånska →</button>
+      </div>
+
+      <div class="resultat" id="resultat">
+        <div class="flagg-rand"></div>
+        <h3>⚠️ Ojoj, nææh...</h3>
+        <div class="dansk-text" id="danskrad"></div>
+      </div>
+    </div>
+
+    <footer>Skånska-översättaren 3000 · Officiellt icke-godkänd i Danmark</footer>
+  </div>
+
+<script>
+  const knapp = document.getElementById('knapp');
+  const input = document.getElementById('input');
+  const resultat = document.getElementById('resultat');
+  const danskrad = document.getElementById('danskrad');
+
+  const svenskaFelet = "Översättningen kunde inte genomföras. Din geografiska position indikerar att du befinner dig i Danmark, och skånska är tyvärr inte tillgängligt där.";
+  const danskaMeningen = "Oversættelsen kunne ikke gennemføres. Din geografiske position indikerer, at du befinder dig i Danmark, og skånsk er desværre ikke tilgængeligt der. Det tyder også på, at du sandsynligvis er dansker og ikke svensker.";
+
+  knapp.addEventListener('click', () => {
+    const text = input.value.trim();
+    if (!text) {
+      input.focus();
+      input.style.borderColor = '#d94f4f';
+      setTimeout(() => input.style.borderColor = '', 600);
+      return;
+    }
+
+    danskrad.textContent = danskaMeningen;
+
+    resultat.classList.remove('dansk');
+    void resultat.offsetWidth; // trigga om animationen
+    resultat.classList.add('dansk');
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.ctrlKey) knapp.click();
+  });
+</script>
+</body>
+</html>
